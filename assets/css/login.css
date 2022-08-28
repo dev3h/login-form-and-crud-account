@@ -1,19 +1,6 @@
 @import "./reset.css";
 @import "./base.css";
 
-.password-field {
-    position: relative;
-}
-:is(.eye-close, .eye-open) {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-}
-.hidden {
-    display: none;
-}
 .btn-login {
     display: block;
     width: 100%;

@@ -1,3 +1,8 @@
+<?php
+if (isset($_SESSION['username'])) {
+    header('Location: ./admin/index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +17,7 @@
 </head>
 
 <body>
-    <?php
-    if (isset($_GET['error'])) { ?>
-       <p style="color: red; position: absolute; "><?php echo $_GET['error'] ?></p>
-    <?php } ?>
+    <?php include './error.php' ?>
     <div class="wrapper">
         <div class="card--base">
             <h1>đăng nhập</h1>
@@ -29,7 +31,6 @@
                         <i class="bi bi-eye-slash-fill eye-close"></i>
                         <i class="bi bi-eye-fill eye-open hidden"></i>
                     </div>
-                    <br>
                     <button class="btn btn-outline-primary btn-login">Đăng nhập</button>
                 </form>
             </div>
@@ -37,28 +38,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <script>
-        const eyeClose = document.querySelector('.eye-close');
-        const eyeOpen = document.querySelector('.eye-open');
-        const inputPassword = document.querySelector('#password');
-        const inputUserName = document.querySelector('#username');
-
-        eyeClose.addEventListener('click', () => {
-            eyeClose.classList.add('hidden');
-            eyeOpen.classList.remove('hidden');
-            inputPassword.type = 'text';
-
-        })
-        eyeOpen.addEventListener('click', () => {
-            eyeOpen.classList.add('hidden');
-            eyeClose.classList.remove('hidden');
-            inputPassword.type = 'password';
-
-        })
-        window.addEventListener('load', () => {
-            inputUserName.focus();
-        })
-    </script>
+    <script src="./assets/javascript/handleEyePassWord.js"></script>
 </body>
 
 </html>

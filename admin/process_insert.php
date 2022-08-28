@@ -1,20 +1,28 @@
 <?php
 
-$userName = trim($_POST['userName']);
-$displayName = trim($_POST['displayName']);
+$userName = addslashes(trim($_POST['userName']));
+$displayName = addslashes(trim($_POST['displayName']));
+$password = md5(addslashes(trim($_POST['password'])));
 $role = $_POST['role'];
-if($userName != "" && $displayName != "" && $role != "") {
+if($userName != "" && $displayName != "" && $password != "" && $role != "") {
     try {
         require '../connect.php';
 
-        $sql = "INSERT INTO account(userName, displayName, role) VALUES('$userName', '$displayName', $role)";
+        $sql = "INSERT INTO account(userName, displayName, password, role) 
+        VALUES('$userName', '$displayName','$password', $role)";
 
         mysqli_query($connect, $sql);
+
+        if(!mysqli_error($connect)) {
+            header("location:index.php");
+        }
     } catch (Exception $e) {
         echo "Loi: " . $e->getMessage();
     }
 } else {
-    header("location:index.php?error=phải nhập đầy đủ thông tin");
+    session_start();
+    $_SESSION["error"] = "Vui lòng nhập đầy đủ thông tin";
+    header("location:index.php");
 }
 
 mysqli_close($connect);

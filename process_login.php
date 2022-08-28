@@ -1,7 +1,7 @@
 <?php 
 
-$username = trim($_POST['username']);
-$password = trim($_POST['password']);
+$username = addslashes(trim($_POST['username']));
+$password = md5(addslashes(trim($_POST['password'])));
 
 if($username != "" && $password != "") {
     try {
@@ -22,7 +22,9 @@ if($username != "" && $password != "") {
         echo "Loi: " . $e->getMessage();
     }
 } else {
-    header("location:index.php?error=phải nhập đầy đủ thông tin");
+    session_start();
+    $_SESSION["error"] = "Vui lòng nhập đầy đủ thông tin";
+    header("location:index.php");
 }
 
 

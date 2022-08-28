@@ -12,10 +12,14 @@
 
 <body>
     <h1>Quản lý tài khoản</h1>
+    <?php include '../error.php' ?>
+    <a class="d-flex justify-content-end me-5" href="./logout.php">Đăng xuất</a>
       <?php
-    if (isset($_GET['error'])) { ?>
-       <p style="color: red; position: absolute; "><?php echo $_GET['error'] ?></p>
-    <?php } ?>
+      if(empty($_SESSION['username'])){
+        header('Location: ./index.php');
+      } else { ?>
+      <p>Xin chào <?php echo $_SESSION['username'] ?></p>
+      <?php } ?>
     <?php
     require '../connect.php';
     $sql = "SELECT account.*, type FROM account JOIN account_type ON account.role = account_type.id";
