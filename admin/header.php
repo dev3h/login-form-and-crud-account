@@ -7,7 +7,7 @@
             <a href="./manager.php">Trang chủ</a>
         </div>
         <div>
-            <a href="./logout.php">Đăng xuất</a>
+            <a href="../logout.php">Đăng xuất</a>
         </div>
     </div>
 </header>
