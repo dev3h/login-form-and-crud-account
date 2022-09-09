@@ -1,3 +1,8 @@
+<?php
+if (isset($_SESSION['username'])) {
+    header('Location: ./admin/index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,59 +10,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý</title>
+    <title>Đăng nhập</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
 </head>
 
 <body>
-    <h1>Quản lý tài khoản</h1>
-    <?php include '../error.php' ?>
-    <a class="d-flex justify-content-end me-5" href="./logout.php">Đăng xuất</a>
-      <?php
-      if(empty($_SESSION['username'])){
-        header('Location: ./index.php');
-      } else { ?>
-      <p>Xin chào <?php echo $_SESSION['username'] ?></p>
-      <?php } ?>
-    <?php
-    require '../connect.php';
-    $sql = "SELECT account.*, type FROM account JOIN account_type ON account.role = account_type.id";
-    $result = mysqli_query($connect, $sql);
-    ?>
-    <div class="d-flex justify-content-end m-3">
-        <a class="btn btn-primary" href="form_insert.php">Thêm</a>
+    <?php include './error.php' ?>
+    <div class="wrapper">
+        <div class="card--base">
+            <h1>đăng nhập</h1>
+            <div class="form--base login-form">
+                <form action="./process_login.php" method="post">
+                    <div class="field">
+                        <input type="text" id="username" placeholder="nhập tên đăng nhập" name="username">
+                    </div>
+                    <div class="field password-field">
+                        <input type="password" id="password" placeholder="nhập mật khẩu" name="password">
+                        <i class="bi bi-eye-slash-fill eye-close"></i>
+                        <i class="bi bi-eye-fill eye-open hidden"></i>
+                    </div>
+                    <button class="btn btn-outline-primary btn-login">Đăng nhập</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <table class="table table-bordered table-hover table-responsive">
-        <thead class="table-dark">
-            <tr>
-                <th>Stt</th>
-                <th>Tên đăng nhập</th>
-                <th>Tên hiển thị</th>
-                <th>Quyền</th>
-                <th>Sửa</th>
-                <th>Xóa</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($result as $each) { ?>
-                <tr>
-                    <td><?php echo $each['stt'] ?></td>
-                    <td><?php echo $each['userName'] ?></td>
-                    <td><?php echo $each['displayName'] ?></td>
-                    <td><?php echo $each['type'] ?></td>
-                    <td>
-                        <a href="./form_update.php?username=<?php echo $each['userName'] ?>"><i class="bi bi-pencil-fill"></i></a>
-                    </td>
-                    <td>
-                        <a href="./delete.php?username=<?php echo $each['userName'] ?>"><i class="bi bi-trash3-fill"></i></a>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-    <?php mysqli_close($connect) ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="./assets/javascript/handleEyePassWord.js"></script>
 </body>
 
 </html>

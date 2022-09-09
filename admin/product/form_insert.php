@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm</title>
-    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
@@ -14,7 +14,7 @@
 <body>
     <?php include '../error.php' ?>
     <?php
-    require '../connect.php';
+    require '../../connect.php';
 
     $sql = "SELECT * FROM account_type";
     $result = mysqli_query($connect, $sql);
@@ -25,22 +25,10 @@
             <div class="form--base">
                 <form action="./process_insert.php" method="POST">
                     <div class="field">
-                        <input type="text" placeholder="nhập tên đăng nhập" name="userName">
+                        <input type="text" placeholder="nhập tên sản phẩm" name="name">
                     </div>
                     <div class="field">
-                        <input type="text" placeholder="nhập tên hiển thị" name="displayName">
-                    </div>
-                    <div class="field password-field">
-                        <input type="password" id="password" placeholder="nhập mật khẩu" name="password">
-                        <i class="bi bi-eye-slash-fill eye-close"></i>
-                        <i class="bi bi-eye-fill eye-open hidden"></i>
-                    </div>
-                    <div class="field">
-                        <select name="role" class="form-select form-select-lg">
-                            <?php foreach ($result as $each) { ?>
-                                <option value="<?php echo $each['id'] ?>"><?php echo $each['type'] ?></option>
-                            <?php } ?>
-                        </select>
+                        <input type="text" id="password" placeholder="nhập đường link ảnh" name="photo">
                     </div>
                     <br>
                     <div class="d-flex justify-content-end"><button class="btn btn-primary">Thêm</button></div>

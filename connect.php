@@ -1,7 +1,7 @@
 <?php
 
 try {
-    $connect = mysqli_connect('localhost', 'root', '', 'login');
+    $connect = mysqli_connect('localhost', 'root', '', 'admin');
     mysqli_set_charset($connect, 'utf8');
 } catch (Exception $e) {
     session_start();

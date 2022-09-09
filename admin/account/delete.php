@@ -3,7 +3,8 @@ session_start();
 $userNameLogin = $_SESSION["username"];
 $userName = $_GET['username'];
 
-require '../connect.php';
+try {
+    require '../../connect.php';
 
 if($userNameLogin != $userName){
     $sql = "DELETE FROM account WHERE userName = '$userName'";
@@ -12,5 +13,11 @@ if($userNameLogin != $userName){
     header("location:index.php");
     exit;
 } else {
-    echo 'Bạn đang login bằng tài khoản này, không thể xóa tài khoản này';
+    throw new Exception('Bạn đang login bằng tài khoản này, không thể xóa tài khoản này') ;
 }
+} catch (Exception $e) {
+    session_start();
+        $_SESSION["error"] = "Lỗi: " . $e->getMessage();
+        header("location:index.php");
+}
+

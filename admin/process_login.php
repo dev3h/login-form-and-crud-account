@@ -5,16 +5,17 @@ $password = md5(addslashes(trim($_POST['password'])));
 
 if($username != "" && $password != "") {
     try {
-        require './connect.php';
+        require '../connect.php';
 
-        $sql = "SELECT COUNT(*) FROM account WHERE userName = '$username' AND passWord = '$password' AND role = 1";
+        $sql = "SELECT * FROM account WHERE userName = '$username' AND passWord = '$password' AND role = 1";
 
         $result = mysqli_query($connect,$sql);
-        $each = mysqli_fetch_array($result);
-        if($each[0] == 1){
+        if(mysqli_num_rows($result) === 1){
+            $each = mysqli_fetch_array($result);
             session_start();
             $_SESSION["username"] = $username;
-            header("location:/baitapform/admin/");
+            $_SESSION["displayName"] = $each['displayName'];
+            header("location:./account/");
         } else {
             header("location:index.php");
         }

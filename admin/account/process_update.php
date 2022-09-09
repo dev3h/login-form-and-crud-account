@@ -14,7 +14,7 @@ $role = $_POST['role'];
 
 if ($userName != "" && $displayName != "" && $password != "" && $role != "") {
     try {
-        require '../connect.php';
+        require '../../connect.php';
         $sql = "UPDATE account SET displayName='$displayName', role='$role' WHERE userName='$userName' AND password='$password'";
         mysqli_query($connect, $sql);
         if(!mysqli_error($connect)) {
